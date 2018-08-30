@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reCAPTCHA V2 Invisible demo</title>
+
+    <!--LOOK HERE!-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--LOOK HERE!-->
+
+    <script src="handleCaptcha.js" async defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light"><h2>Some awesome page</h2><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button></nav>
+<form style="margin: 100px" id="form" method="POST">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="validationServer01">First name</label>
+            <input type="text" class="form-control is-valid" id="validationServer01" name="name" placeholder="First name" value="Mark" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationServer02">Last name</label>
+            <input type="text" class="form-control is-valid" id="validationServer02" name="surname" placeholder="Last name" value="Otto" required>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="validationServerUsername">Username</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend3">@</span>
+                </div>
+                <input type="text" class="form-control is-invalid" id="validationServerUsername"  name="username" placeholder="Username" aria-describedby="inputGroupPrepend3" value="Otto" required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input is-invalid" type="checkbox" name="agree" value="" id="invalidCheck3">
+            <label class="form-check-label" for="invalidCheck3">
+                Agree to terms and conditions
+            </label>
+        </div>
+    </div>
+    <br/>
+
+    <!--LOOK HERE!-->
+    <div id='recaptcha' class="g-recaptcha"
+         data-sitekey="6Lc56mwUAAAAAAOa5-Dho_MCYq-hIxIBIAm1VsNp"
+         data-callback="onSubmit"
+         data-size="invisible"></div>
+    <!--LOOK HERE!-->
+
+    <button class="btn btn-success" id="execute">Execute reCAPTCHA</button>
+    <button class="btn btn-secondary" id="reset">Reset reCAPTCHA</button>
+    </form>
+
+
+<div class="jumbotron jumbotron-fluid d-none" id="token">
+        <div class="container">
+            <h1 class="display-4">Token</h1>
+            <p class="lead text-truncat" id="token-place" ></p>
+            <button class="btn btn-primary d-none" type="submit" id="button-send">Validate with Google</button>
+        </div>
+    </div>
+
+
+<div class="jumbotron jumbotron-fluid d-none" id="google">
+    <div class="container">
+        <h1 class="display-4">Google Response</h1>
+        <p class="lead text-truncat" id="response" ></p>
+    </div>
+</div>
+</body>
+</html>
+
+
+        <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+
+
+
+
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('reCAPTCHA_site_key', {action: 'homepage'}).then(function(token) {
+                    useTokenWisely(token);
+                });
+            });
+        </script>
+
+
+    {
+        "success": true|false,      // whether this request was a valid reCAPTCHA token for your site
+        "score": number             // the score for this request (0.0 - 1.0)
+        "action": string            // the action name for this request (important to verify)
+        "challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+        "hostname": string,         // the hostname of the site where the reCAPTCHA was solved
+        "error-codes": [...]        // optional
+    }
