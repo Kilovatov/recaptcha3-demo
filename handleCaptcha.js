@@ -5,11 +5,12 @@ const googleRespJumbotron = document.getElementById("google");
 const googleRespContainer = document.getElementById("response");
 const secret = '6LcBRm0UAAAAABBCGBY5arCUOdDSCBITuJoHBm5t';
 const siteKey = '6LcBRm0UAAAAAP-ZmkTiqf4Zbd657frckbBHTSgE';
+let counter = 0;
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
     grecaptcha.ready(function() {
-        grecaptcha.execute(siteKey, {action: 'button_clicked'})
+        grecaptcha.execute(siteKey, {action: 'button_clicked' + counter})
             .then(function(token) {
                 tokenJumbotron.classList.remove('d-none');
                 tokenContainer.innerHTML = token;
@@ -22,6 +23,7 @@ form.addEventListener("submit", function (event) {
                 }).then((response) => response.json()).then(function(data) {
                     googleRespJumbotron.classList.remove('d-none');
                     googleRespContainer.innerHTML = JSON.stringify(data);
+                    counter++;
                 });
             });
     });
